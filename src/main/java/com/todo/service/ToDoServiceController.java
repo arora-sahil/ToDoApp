@@ -64,7 +64,7 @@ public class ToDoServiceController {
 				}).orElse(ResponseEntity.notFound().build());
 	}
 	@DeleteMapping(value = "/{taskId}")
-	public ResponseEntity<?> deleteTask(@PathVariable("taskId") int taskId, int ToDoEntity)
+	public ResponseEntity<?> deleteTask(@PathVariable("taskId") int taskId)
 	{
 		return toDoRepository.findById(taskId)
 				.map(

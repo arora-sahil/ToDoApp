@@ -16,7 +16,6 @@ public class ToDoEntity {
 	
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
 	private int taskId;
 	
 	@Column(name="taskName")
