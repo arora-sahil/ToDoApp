@@ -2,6 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
     }
@@ -12,6 +13,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -21,17 +23,55 @@ repositories {
 	mavenCentral()
 }
 
+//Configures the classpath and the source and resource directories
+//of the integrationTest task.
+sourceSets {
+    //Declaring this source set creates compile time and runtime configurations for it.
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration/java')
+        }
+        resources.srcDir file('src/integration/resources')
+    }
+}
+
+//Configures the compile and runtime configurations for our integration tests
+//and includes the dependencies of the test task.
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+
 dependencies {
 	 // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.h2database:h2'
     // Use MySQL Connector-J
     runtimeOnly 'mysql:mysql-connector-java'
-
-    // Use MySQL Connector-J
-    implementation 'mysql:mysql-connector-java'
     implementation group: 'net.sf.dozer', name: 'dozer', version: '5.5.1' 
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    integrationTestImplementation 'org.assertj:assertj-core:3.0.0'
 }
+
+
+
+//Create the task that runs the integration tests found from the
+//configured source directory and uses the correct classpath.
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    //If you want to ensure that integration tests are run every time when you invoke
+    //this task, uncomment the following line.
+    //outputs.upToDateWhen { false }
+}
+
+//Ensure that the check task fails the build if there are failing integration tests.
+check.dependsOn integrationTest
+//Ensure that our unit tests are run before our integration tests
+integrationTest.mustRunAfter test
