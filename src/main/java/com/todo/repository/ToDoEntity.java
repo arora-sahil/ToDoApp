@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="todoDb")
+@Table(name="TD_TASK")
 public class ToDoEntity {
 	
 	

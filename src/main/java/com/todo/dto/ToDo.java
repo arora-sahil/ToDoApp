@@ -8,7 +8,8 @@ public class ToDo {
 	private int taskId;
     private Date createdAt = new Date();
 	private String taskPriority;
-	private String taskStatus;	
+	private String taskStatus;
+
 	
 	public int getTaskId() {
 		return taskId;
