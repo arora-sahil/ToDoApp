@@ -1,9 +1,6 @@
 language: java
-sudo: false #faster builds
 jdk:
-  - openjdk10
-before_install:
-  - pip install --user codecov
+  - oraclejdk8
 env:
   global:
     - CODECOV_TOKEN=ce3ce570-c4f3-4c2c-8dc2-7e537ed3a752
@@ -11,5 +8,5 @@ script:
   - ./gradlew test
   - ./gradlew integrationTest
 after_success:
-  - codecov -F
+  - bash <(curl -s https://codecov.io/bash)
 
