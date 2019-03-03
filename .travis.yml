@@ -7,3 +7,14 @@ env:
     - CODECOV_TOKEN=ce3ce570-c4f3-4c2c-8dc2-7e537ed3a752
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+stages:
+  - name: build
+  - name: test
+  - name: integration
+jobs:
+  include:
+    - stage: test
+      script: ./gradlew test
+    - stage: integration
+      script: ./gradlew integrationTest
+
