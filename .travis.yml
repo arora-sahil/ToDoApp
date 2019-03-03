@@ -4,6 +4,6 @@ jdk:
   - openjdk10
 env:
   global:
-    - CODECOV_TOKEN=:ce3ce570-c4f3-4c2c-8dc2-7e537ed3a752
+    - CODECOV_TOKEN=ce3ce570-c4f3-4c2c-8dc2-7e537ed3a752
 after_success:
   - bash <(curl -s https://codecov.io/bash)
