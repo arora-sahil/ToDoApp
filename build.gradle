@@ -62,7 +62,7 @@ dependencies {
 jacocoTestReport {
     reports {
         xml.enabled true
-        html.enabled false
+        html.enabled true
     }
 }
 //Create the task that runs the integration tests found from the
