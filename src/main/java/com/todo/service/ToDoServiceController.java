@@ -1,7 +1,8 @@
 package com.todo.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.validation.Valid;
 
@@ -55,7 +56,6 @@ public class ToDoServiceController {
 	{
 		return toDoRepository.findById(taskId)
 				.map(todoEntity -> {
-					todoEntity.setTaskId(toDo.getTaskId());
 					todoEntity.setTaskPriority(toDo.getTaskPriority());
 					todoEntity.setTaskName(toDo.getTaskName());
 					todoEntity.setTaskStatus(toDo.getTaskStatus());
@@ -72,5 +72,37 @@ public class ToDoServiceController {
 							toDoRepository.deleteById(taskId);
 							return ResponseEntity.ok().build();
 						}).orElse(ResponseEntity.notFound().build());
+	}
+	@GetMapping(value="/sortByDateAsc")
+	public ResponseEntity<List<ToDo>> sortTaskByDateAsc()
+	{
+		List<ToDo> sortedList = new ArrayList<ToDo>();
+		Iterable<ToDoEntity> toDoEntityIterable = toDoRepository.findAll();
+		for (ToDoEntity toDoEntity : toDoEntityIterable) {
+			sortedList.add(dozerBeanMapper.map(toDoEntity, ToDo.class));
+		}
+		Collections.sort(sortedList, new Comparator<ToDo>() {
+			@Override
+			public int compare(ToDo toDo, ToDo toDo1) {
+				return toDo.getCreatedAt().compareTo(toDo1.getCreatedAt()) ;
+			}
+		});
+		return ResponseEntity.ok().body(sortedList);
+	}
+	@GetMapping(value="/sortByDateDesc")
+	public ResponseEntity<List<ToDo>> sortTaskByDateDesc()
+	{
+		List<ToDo> sortedList = new ArrayList<ToDo>();
+		Iterable<ToDoEntity> toDoEntityIterable = toDoRepository.findAll();
+		for (ToDoEntity toDoEntity : toDoEntityIterable) {
+			sortedList.add(dozerBeanMapper.map(toDoEntity, ToDo.class));
+		}
+		Collections.sort(sortedList, new Comparator<ToDo>() {
+			@Override
+			public int compare(ToDo toDo, ToDo toDo1) {
+				return toDo1.getCreatedAt().compareTo(toDo.getCreatedAt()) ;
+			}
+		});
+		return ResponseEntity.ok().body(sortedList);
 	}
 }

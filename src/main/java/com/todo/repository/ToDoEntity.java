@@ -1,13 +1,11 @@
 package com.todo.repository;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -16,14 +14,22 @@ public class ToDoEntity {
 	
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int taskId;
 	
 	@Column(name="taskName")
 	private String taskName;
-	
+
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="createdAt")
-    private Date createdAt = new Date();
-	
+    private Date createdAt ;
+
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "modifyDate")
+	private Date modifyDate;
+
 	@Column(name="taskPriority")
 	private String taskPriority;
 	
@@ -60,6 +66,5 @@ public class ToDoEntity {
 	public void setTaskPriority(String taskPriority) {
 		this.taskPriority = taskPriority;
 	}
-
 
 }
