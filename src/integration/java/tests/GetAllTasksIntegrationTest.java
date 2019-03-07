@@ -44,7 +44,6 @@ public class GetAllTasksIntegrationTest {
         for(ToDo toDo : toDoList) {
             Assert.assertEquals("withdraw cash from atm", toDo.getTaskName());
             Assert.assertEquals("high", toDo.getTaskPriority());
-            Assert.assertEquals(1, toDo.getTaskId());
             Assert.assertEquals("Scheduled", toDo.getTaskStatus());
         }
     }
