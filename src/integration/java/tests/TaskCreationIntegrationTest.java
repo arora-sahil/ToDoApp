@@ -42,9 +42,7 @@ public class TaskCreationIntegrationTest {
         Assert.assertEquals(102,toDo.getTaskId());
         Assert.assertEquals("Scheduled",toDo.getTaskStatus());
     }
-
     public HttpHeaders getHeaders() {
-
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON}));
         return headers;
