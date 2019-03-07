@@ -32,14 +32,14 @@ public class TaskCreationIntegrationTest {
     @Test
     public void createTask()
     {
-        String body ="{\"taskName\":\"withdraw cash from atm\",\"taskId\":\"102\",\"taskPriority\":\"high\",\"taskStatus\":\"Scheduled\"}";
+        String body ="{\"taskName\":\"withdraw cash from atm\",\"taskPriority\":\"high\",\"taskStatus\":\"Scheduled\"}";
         HttpEntity httpEntity = new HttpEntity<String>(body,getHeaders());
         ResponseEntity<ToDo> response = restTemplate.exchange(
                 createURLWithPort("/tasks"), HttpMethod.POST, httpEntity, ToDo.class);
         ToDo toDo =response.getBody();
         Assert.assertEquals("withdraw cash from atm", toDo.getTaskName());
         Assert.assertEquals("high",toDo.getTaskPriority());
-        Assert.assertEquals(102,toDo.getTaskId());
+        Assert.assertEquals(1,toDo.getTaskId());
         Assert.assertEquals("Scheduled",toDo.getTaskStatus());
     }
     public HttpHeaders getHeaders() {
