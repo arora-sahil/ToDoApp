@@ -73,36 +73,4 @@ public class ToDoServiceController {
 							return ResponseEntity.ok().build();
 						}).orElse(ResponseEntity.notFound().build());
 	}
-	@GetMapping(value="/sortByDateAsc")
-	public ResponseEntity<List<ToDo>> sortTaskByDateAsc()
-	{
-		List<ToDo> sortedList = new ArrayList<ToDo>();
-		Iterable<ToDoEntity> toDoEntityIterable = toDoRepository.findAll();
-		for (ToDoEntity toDoEntity : toDoEntityIterable) {
-			sortedList.add(dozerBeanMapper.map(toDoEntity, ToDo.class));
-		}
-		Collections.sort(sortedList, new Comparator<ToDo>() {
-			@Override
-			public int compare(ToDo toDo, ToDo toDo1) {
-				return toDo.getCreatedAt().compareTo(toDo1.getCreatedAt()) ;
-			}
-		});
-		return ResponseEntity.ok().body(sortedList);
-	}
-	@GetMapping(value="/sortByDateDesc")
-	public ResponseEntity<List<ToDo>> sortTaskByDateDesc()
-	{
-		List<ToDo> sortedList = new ArrayList<ToDo>();
-		Iterable<ToDoEntity> toDoEntityIterable = toDoRepository.findAll();
-		for (ToDoEntity toDoEntity : toDoEntityIterable) {
-			sortedList.add(dozerBeanMapper.map(toDoEntity, ToDo.class));
-		}
-		Collections.sort(sortedList, new Comparator<ToDo>() {
-			@Override
-			public int compare(ToDo toDo, ToDo toDo1) {
-				return toDo1.getCreatedAt().compareTo(toDo.getCreatedAt()) ;
-			}
-		});
-		return ResponseEntity.ok().body(sortedList);
-	}
 }
