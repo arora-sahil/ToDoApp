@@ -12,7 +12,7 @@ spring.profiles.active = default or devSql
 ```
 
 ## Note: 
-There are no extra configurations required to run unit tests and integration tests. Just set the profile if you want to SQL.
+There are no extra configurations required to run unit tests and integration tests. Just set the profile if you want use SQL.
 
 
 
