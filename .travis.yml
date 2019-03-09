@@ -12,6 +12,5 @@ after_success:
 script:
   - ./gradlew clean
   - ./gradlew build
-  - ./gradlew test
   - ./gradlew javadoc
   - sonar-scanner
