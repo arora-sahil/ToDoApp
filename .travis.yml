@@ -7,9 +7,8 @@ env:
     - CODECOV_TOKEN=ce3ce570-c4f3-4c2c-8dc2-7e537ed3a752
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+addons:
+  sonarcloud:
+    organization: "arora-sahil-github"
 script:
-  - ./gradlew sonarqube \
-    -Dsonar.projectKey=arora-sahil_ToDoApp \
-    -Dsonar.organization=arora-sahil-github \
-    -Dsonar.host.url=https://sonarcloud.io \
-    -Dsonar.login=aeb626479793c24e3effdc31a8c28512e5a49046
+  - sonar-scanner
