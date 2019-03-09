@@ -8,4 +8,8 @@ env:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
-  - ./gradlew sonarqube
+  - ./gradlew sonarqube \
+    -Dsonar.projectKey=arora-sahil_ToDoApp \
+    -Dsonar.organization=arora-sahil-github \
+    -Dsonar.host.url=https://sonarcloud.io \
+    -Dsonar.login=aeb626479793c24e3effdc31a8c28512e5a49046
